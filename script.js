@@ -53,6 +53,7 @@ function criarDistancia(nomeCidade, distancia) {
 
 function criarCidade(nomeCidade, distancias) {
     distancias = distancias || [];
+
     var novaCidade = {
         nome: nomeCidade,
         distancias: []
@@ -65,24 +66,21 @@ function criarCidade(nomeCidade, distancias) {
 function percorrerCidadePerguntandoDistancia(novaCidadeNome) {
     var cidadeParaPerguntar = minhasCidades.cloneCidade();
 
+    var novaCidade = criarCidade(novaCidadeNome);
     if (cidadeParaPerguntar.isEmpty()) {
-        var novaCidade = criarCidade(novaCidadeNome);
 
         minhasCidades.push(novaCidade);
         return;
     }
 
-    var distancias = [];
-    var novaCidade = criarCidade(novaCidadeNome);
     for (var i = 0; !cidadeParaPerguntar.isEmpty(); i++) {
-        var cidadeAtualParaPerguntar = cidadeParaPerguntar[0];
         var distancia = 0;
-        var entradaUsuario = prompt("Digite a distancia de \"" + novaCidadeNome + "\" para \"" + cidadeAtualParaPerguntar.nome + "\".");
+        var cidadeAtualParaPerguntar = cidadeParaPerguntar[0];
 
         //Entra em um laço enquanto o usuario não digitar a distancia em numero
-        while (parseFloat(entradaUsuario) === NaN) {
-            entradaUsuario = prompt("Digite uma distancia valida de \"" + novaCidadeNome + "\" para \"" + cidadeAtualParaPerguntar.nome + "\".");
-        }
+        do {
+            var entradaUsuario = prompt("Digite uma distancia valida de \"" + novaCidadeNome + "\" para \"" + cidadeAtualParaPerguntar.nome + "\".");
+        } while (parseFloat(entradaUsuario) == NaN);
 
         //Converte a entrada do usuario em um numero
         distancia = parseFloat(entradaUsuario);
