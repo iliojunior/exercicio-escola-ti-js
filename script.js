@@ -1,7 +1,22 @@
 const OPCAO_SAIR = "!SAIR";
+const OPCAO_DISTANCIA = "!DISTANCIA";
 minhasCidades = [];
 
 iniciarAplicacao();
+
+function mostrarDistancia(cidadeOrigem, cidadeDestino) {
+    var indexCidade = minhasCidades.indexOfCidade(cidadeOrigem);
+    var indexDistancia = minhasCidades[indexCidade].distancias.indexOfDistancia(cidadeDestino);
+    var distancia = minhasCidades[indexCidade].distancias[indexDistancia].distancia;
+    var mensagem = "A distancia de \"" + cidadeOrigem + "\" para \"" + cidadeDestino + "\" é: " + distancia;
+    alert(mensagem);
+}
+
+function calcularDistancia() {
+    var cidadeOrigem = prompt("Digite a cidade de origem");
+    var cidadeDestino = prompt("Digite a cidade de destino");
+    mostrarDistancia(cidadeOrigem, cidadeDestino);
+}
 
 function iniciarAplicacao() {
     var nomeNovaCidade;
@@ -9,20 +24,27 @@ function iniciarAplicacao() {
     do {
 
         var mensagemNovaCidade = "Digite o nome da nova cidade:" +
-            "\r\nPara sair digite \"!SAIR\"";
+            "\r\nPara sair digite \"!SAIR\"" +
+            "\r\nPara ver as distancias digite \"!DISTANCIA\"";
 
         nomeNovaCidade = prompt(mensagemNovaCidade);
 
         var isSair = (nomeNovaCidade === OPCAO_SAIR || nomeNovaCidade === null);
 
-        if (!isSair && !nomeNovaCidade.isNullOrEmpty()) {
+        if (nomeNovaCidade == OPCAO_DISTANCIA)
+            calcularDistancia();
+
+        var isAdicionar = (!isSair && nomeNovaCidade !== OPCAO_DISTANCIA && !nomeNovaCidade.isNullOrEmpty());
+
+        if (isAdicionar) {
             adicionarCidade(nomeNovaCidade);
         }
+
 
     } while (!isSair);
 
     //Exibe o vetor de cidades (Mapa) no console
-    minhasCidades.print();
+    console.log(convertoToJson(minhasCidades));
 }
 
 function criarDistancia(nomeCidade, distancia) {

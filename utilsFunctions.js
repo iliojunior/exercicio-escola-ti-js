@@ -34,6 +34,23 @@ Object.prototype.isEmpty = function () {
     return (this.length <= 0 || this.length === undefined);
 }
 
-Object.prototype.print = function () {
-    console.log(JSON.stringify(this, null, 4));
+function convertoToJson(value) {
+    return JSON.stringify(value, null, 4);
+}
+Array.prototype.indexOfCidade = function (searchValue) {
+    var index = 0;
+    for (var i = 0; i < this.length; i++) {
+        if (this[i].nome == searchValue)
+            index = i;
+    }
+    return index;
+}
+
+Array.prototype.indexOfDistancia = function (searchValue) {
+    var index = 0;
+    for (var i = 0; i < this.length; i++) {
+        if (this[i].cidade == searchValue)
+            index = i;
+    }
+    return index;
 }
