@@ -126,13 +126,6 @@ function adicionarCidade(novaCidadeNome) {
     var novaCidade = criarCidade(novaCidadeNome);
 
     /**
-     * Instancia da cidade caso o mapa esteja vazio
-     */
-    if (cidadeParaPerguntar.isEmpty()) {
-        minhasCidades.push(novaCidade);
-    }
-
-    /**
      * Perguntar as distancias da nova cidade para as demais
      */
     for (var i = 0; !cidadeParaPerguntar.isEmpty(); i++) {
